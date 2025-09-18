@@ -52,8 +52,10 @@
 
                 {% endif %}
             {% endfor %}
-
-            {% include "blog/snippets/pagination.html" %}
+            
+            {% if creations %}
+                {% include "blog/snippets/pagination.html" %}
+            {% endif %}
         </div>
         
 
