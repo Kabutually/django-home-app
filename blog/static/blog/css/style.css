@@ -1,0 +1,51 @@
+div.category > ul > li a{
+    color: #212529;
+    text-decoration: none;
+}
+
+img{
+    object-fit: cover;
+}
+
+footer{
+    text-align: center;
+}
+
+.card-img-top-fixed {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-container {
+  margin-bottom: 1rem; /* コンテナの下に少し余白を追加 */
+}
+
+.play-link {
+  position: absolute; /* 親要素(.image-container)を基準に位置を決定 */
+  bottom: 10px;       /* 下から10pxの位置 */
+  right: 10px;        /* 右から10pxの位置 */
+}
+
+.title h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3498db;
+}
+
+.page-header {
+  width: 100%;
+  background-color: rgb(95, 211, 211);
+  padding: 1rem 0;
+  margin-bottom: 5rem;
+}
+
+.page-header h1 {
+  font-size: 27px;
+  text-align: center;
+  font-weight: normal;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}

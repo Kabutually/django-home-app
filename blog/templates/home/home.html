@@ -1,0 +1,96 @@
+{% extends "blog/base.html" %}
+{% load static %} 
+
+{% block content %}
+
+<div class="container">
+
+    <section style="margin-top: 3rem; margin-bottom: 6rem;">
+    <div class="title">
+        <h2>はじめに</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/profile_image.jpg' %}" alt="プロフィール画像" class="rounded-circle me-4" style="width: 100px; height: 100px;">
+                
+                <div>
+                    <h3 class="card-title mb-1">かぶしき</h3>
+                </div>
+            </div>
+
+            <p class="mt-4">
+                情報科学科の大学生です。
+                趣味程度にゆる～くアプリやゲームの開発をしています。
+                ここではブログや開発したアプリ・ゲームを投稿しています。
+            </p>
+
+            <h5 class="mt-4">スキル</h5>
+            <div>
+                <span class="badge bg-primary">Python</span>
+                <span class="badge bg-primary">C++</span>
+                <span class="badge bg-primary">C#</span>
+                <span class="badge bg-secondary">Unity</span>
+                <span class="badge bg-secondary">Django</span>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <section style="margin-top: 6rem; margin-bottom: 6rem;">
+        <div class="title">
+            <h2>最新のブログ記事</h2>
+        </div>
+        <div class="list-group">
+            {% for post in posts %}
+                {% if post.is_published or user.is_authenticated%}
+                    <a class="list-group-item list-group-item-action" href="{% url 'post-detail' post.pk %}">
+                        {% if not post.is_published %}
+                            <span class="badge bg-danger">下書き</span>
+                        {% endif %}
+                        <h5 class="mb-1">{{ post.title }}</h5>
+                        <small>{{ post.created_at|date }}</small>
+                    </a>
+                {% endif %}
+            {% empty %}
+                <p>まだ記事がありません。</p>
+            {% endfor %}
+        </div>
+        <div class="text-end mt-2">
+            <a href="{% url 'post-list' %}">ブログ記事一覧へ &raquo;</a>
+        </div>
+    </section>
+
+    <section style="margin-top: 6rem; margin-bottom: 3rem;">
+        <div class="title">
+            <h2>最新のポートフォリオ作品</h2>
+        </div>
+        <div class="row">
+            {% for creation in creations %}
+                {% if creation.is_published or user.is_authenticated%}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            {% if creation.image %}
+                                <img src="{{ creation.image.url }}" class="card-img-top-fixed" alt="{{ creation.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                {% if not creation.is_published %}
+                                    <span class="badge bg-danger">下書き</span>
+                                {% endif %}
+                                <h5 class="card-title">{{ creation.title }}</h5>
+                                <a href="{% url 'creation-detail' creation.pk %}" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>まだ作品がありません。</p>
+            {% endfor %}
+        </div>
+        <div class="text-end mt-2">
+            <a href="{% url 'creation-list' %}">ポートフォリオ一覧へ &raquo;</a>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}

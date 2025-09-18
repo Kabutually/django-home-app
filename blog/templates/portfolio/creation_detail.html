@@ -1,0 +1,54 @@
+{% extends "blog/base.html" %}
+{% load blog %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-9">
+        <div class="col-md-11 mx-auto">
+            <div class="article-area">
+                <h1>{{creation.title}}</h1>
+                <p>
+                    {% if not creation.is_published %}
+                        <span class="badge bg-danger">下書き</span>
+                    {% endif %}
+                    <span class="badge bg-secondary">{{creation.category}}</span>
+                    <small class="ps-1">
+                        <i class="fa-solid fa-pencil"></i>{{creation.created_at|date}} |
+                        <i class="fa-solid fa-wrench"></i>{{creation.updated_at|date}}
+                    </small>
+                </p>
+                {% if creation.image %}
+                  <div class="image-container position-relative" style="max-width: 75%;">
+                    <a href="{{creation.url}}" target="_blank" rel="noopener noreferrer">
+                      <img src="{{creation.image.url}}" alt="{{creation.title}}" class="img-fluid">
+                    </a>
+                    {% if creation.url %}
+                      <a href="{{creation.url}}" target="_blank" rel="noopener noreferrer" class="btn btn-dark btn-sm play-link">
+                        <i class="fa-solid fa-play pe-1"></i>作品をプレイする
+                      </a>
+                    {% endif %}
+                  </div>
+                {% elif creation.url %}
+                  <a href="{{ creation.url }}" target="_blank" rel="noopener noreferrer">作品をプレイする</a>
+                {% endif %}
+
+                <div class="mt-4 mb-4">
+                    {{creation.convert_markdown_to_html|safe}}
+                </div>
+
+                <p>
+                    {% for tag in creation.tags.all %}
+                        <span class="badge bg-light text-dark">
+                            {{tag}}
+                        </span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        {% render_sidebar 'portfolio' %}
+    </div>
+</div>
+{% endblock content %}

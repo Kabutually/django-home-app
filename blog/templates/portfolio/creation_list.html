@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% load blog %}
+
+
+{% block content %}
+
+<div class="page-header">
+    <h1>ポートフォリオ作品</h1>
+</div>
+
+<div class="row">
+    <div class="col-9">
+        <div class="col-md-11 mx-auto">
+            {% if category %}
+                <h2>カテゴリー: {{category}}</h2>
+                <hr>
+            {% elif tag %}
+                <h2>#{{tag}}</h2>
+                <hr>
+            {% elif query %}
+                <h2>"{{query}}"の検索結果 {{creation_count}}件</h2>
+                <hr>
+            {% endif %}
+        </div>
+        
+
+        <div class="row mx-auto">
+            {% for creation in creations %}
+                {% if creation.is_published or user.is_authenticated%}
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card mb-4 shadow-sm h-100">
+                        {% if creation.image %}
+                            <a href="{% url 'creation-detail' creation.pk %}">
+                                <img src="{{creation.image.url}}" class="card-img-top-fixed" alt="{{creation.title}}">
+                            </a>
+                        {% endif %}
+                        <div class="card-body">
+                            <strong class="d-inline-block mb-2 text-success">
+                            {% if not creation.is_published %}
+                                <span class="badge bg-danger">下書き</span>
+                            {% endif %}
+                            {{creation.category}}
+                            </strong>
+                            <h3 class="card-title">{{creation.title}}</h3>
+                            <p class="card-text text-muted">{{creation.updated_at|date}}</p>
+                            <p class="card-text">{{creation.convert_markdown_to_html|striptags|truncatechars:30}}</p>
+                            <a class="stretched-link" href="{% url 'creation-detail' creation.pk %}">続きを読む＞＞</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% endif %}
+            {% endfor %}
+
+            {% include "blog/snippets/pagination.html" %}
+        </div>
+        
+
+    </div>
+    <div class="col-3">
+        {% render_sidebar 'portfolio' %}
+    </div>
+</div>
+
+{% endblock content %}
