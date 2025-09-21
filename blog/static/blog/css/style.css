@@ -18,13 +18,13 @@ footer{
 }
 
 .image-container {
-  margin-bottom: 1rem; /* コンテナの下に少し余白を追加 */
+  margin-bottom: 1rem;
 }
 
 .play-link {
-  position: absolute; /* 親要素(.image-container)を基準に位置を決定 */
-  bottom: 10px;       /* 下から10pxの位置 */
-  right: 10px;        /* 右から10pxの位置 */
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .title h2 {
